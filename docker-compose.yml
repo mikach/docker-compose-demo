@@ -1,0 +1,32 @@
+version: '3'
+
+services: 
+    nginx:
+        build: ./nginx
+        ports: 
+            - 8000:80
+        depends_on: 
+            - client
+            - apiserver
+    redis:
+        image: redis:5
+    client:
+        build: 
+            dockerfile: Dockerfile.dev
+            context: ./client
+        volumes: 
+            - /usr/client-app/node_modules
+            - ./client:/usr/client-app
+    apiserver:
+        build: ./server
+        environment: 
+            - PORT=9000
+        depends_on: 
+            - redis
+    worker:
+        build: ./worker
+        volumes: 
+            - ./pdfs:/usr/worker-app/pdfs
+        depends_on: 
+            - redis
+            

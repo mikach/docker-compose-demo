@@ -1,0 +1,19 @@
+{
+  "name": "worker",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^2.0.0",
+    "redis": "^2.8.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "tabWidth": 4
+  }
+}
