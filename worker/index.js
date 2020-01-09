@@ -9,7 +9,7 @@ const subClient = redisClient.duplicate();
 subClient.on('message', async (channel, message) => {
     console.log('got message: ', message);
 
-    const filename = `pdf${Date.now()}`;
+    const filename = Date.now();
 
     redisClient.set(message, 'pending');
 
@@ -22,7 +22,7 @@ subClient.on('message', async (channel, message) => {
     await page.pdf({ path: `./pdfs/${filename}.pdf`, format: 'A4' });
     await browser.close();
 
-    redisClient.set(message, Date.now());
+    redisClient.set(message, filename);
 });
 
 subClient.subscribe('pdf request');

@@ -24,7 +24,7 @@ app.post('/api/generate', async (req, res) => {
     } else if (value === 'pending') {
         res.send({ status: 'pending' });
     } else {
-        res.send({ status: 'complete', name: 'test' });
+        res.send({ status: 'complete', name: value });
     }
 });
 

@@ -4,8 +4,13 @@ import './App.css';
 
 function App() {
     const [keyword, setKeyword] = useState('');
+    const [status, setStatus] = useState(null);
+    const [url, setUrl] = useState(null);
 
     const handleClick = async () => {
+        setStatus(null);
+        setUrl(null);
+
         const res = await fetch('/api/generate', {
             method: 'POST',
             headers: {
@@ -16,7 +21,11 @@ function App() {
 
         const json = await res.json();
 
-        console.log(json.status);
+        setStatus(json.status);
+
+        if (json.name) {
+            setUrl(json.name);
+        }
     };
 
     return (
@@ -30,6 +39,13 @@ function App() {
                     onChange={ev => setKeyword(ev.target.value)}
                 />
                 <button onClick={handleClick}>Generate</button>
+                <br />
+                {status && <p>{status}</p>}
+                {url && (
+                    <a href={`/pdfs/${url}.pdf`} target="_blank">
+                        Download
+                    </a>
+                )}
             </header>
         </div>
     );
